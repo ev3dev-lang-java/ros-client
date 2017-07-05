@@ -35,7 +35,7 @@ public class ROSNodesTest {
         final NodeMain batteryPublisherNode = new BatteryNode();
         final NodeMain ev3irPublisherNode = new EV3IRSensorNode(SensorPort.S1);
         final NodeMain ev3usPublisherNode = new EV3UltrasonicSensorNode(SensorPort.S2);
-        final NodeMain laserPublisherNode = new LaserScanNode();
+        final NodeMain laserPublisherNode = new LaserScanNode("/dev/ttyUSB0");
 
         nodeExecutor.execute(batteryPublisherNode, nodeConfig);
         nodeExecutor.execute(ev3irPublisherNode, nodeConfig);

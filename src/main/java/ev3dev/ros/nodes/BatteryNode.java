@@ -35,7 +35,6 @@ public class BatteryNode extends AbstractNodeMain {
                 Float32 scan = publisher.newMessage();
                 scan.setData(battery.getVoltage());
                 publisher.publish(scan);
-                Thread.sleep(1000);
             }
 
         });

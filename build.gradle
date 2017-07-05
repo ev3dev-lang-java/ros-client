@@ -19,7 +19,7 @@ repositories {
 dependencies {
     compile("commons-logging:commons-logging:1.2")
 
-    compile("com.github.ev3dev-lang-java:ev3dev-lang-java:v0.6.1")
+    compile("com.github.ev3dev-lang-java:ev3dev-lang-java:v0.7.0-SNAPSHOT")
     compile("com.github.ev3dev-lang-java:lejos-navigation:v0.1.0")
     compile("com.github.ev3dev-lang-java:RPLidar4J:v0.2.0")
 

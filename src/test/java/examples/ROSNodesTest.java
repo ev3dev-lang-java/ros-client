@@ -1,8 +1,11 @@
 package examples;
 
 import ev3dev.ros.nodes.BatteryNode;
+import ev3dev.ros.nodes.EV3IRSensorNode;
+import ev3dev.ros.nodes.EV3UltrasonicSensorNode;
 import ev3dev.ros.nodes.LaserScanNode;
 import ev3dev.sensors.Button;
+import lejos.hardware.port.SensorPort;
 import org.ros.RosCore;
 import org.ros.node.DefaultNodeMainExecutor;
 import org.ros.node.NodeConfiguration;
@@ -28,10 +31,16 @@ public class ROSNodesTest {
         final String nodeName = "BrickNode";
         final NodeConfiguration nodeConfig = getNodeConfig(nodeName);
 
-        final NodeMain laserPublisherNode = new LaserScanNode();
+
         final NodeMain batteryPublisherNode = new BatteryNode();
-        nodeExecutor.execute(laserPublisherNode, nodeConfig);
+        final NodeMain ev3irPublisherNode = new EV3IRSensorNode(SensorPort.S1);
+        final NodeMain ev3usPublisherNode = new EV3UltrasonicSensorNode(SensorPort.S2);
+        final NodeMain laserPublisherNode = new LaserScanNode();
+
         nodeExecutor.execute(batteryPublisherNode, nodeConfig);
+        nodeExecutor.execute(ev3irPublisherNode, nodeConfig);
+        nodeExecutor.execute(ev3usPublisherNode, nodeConfig);
+        nodeExecutor.execute(laserPublisherNode, nodeConfig);
 
         Button.waitForAnyEvent();
     }

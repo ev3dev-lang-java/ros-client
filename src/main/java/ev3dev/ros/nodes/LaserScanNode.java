@@ -34,7 +34,6 @@ public class LaserScanNode extends AbstractNodeMain {
                 sensor_msgs.LaserScan scan = publisher.newMessage();
 
                 publisher.publish(scan);
-                Thread.sleep(1000);
             }
 
         });

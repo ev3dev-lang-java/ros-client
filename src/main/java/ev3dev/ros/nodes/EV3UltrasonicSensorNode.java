@@ -1,6 +1,5 @@
 package ev3dev.ros.nodes;
 
-import ev3dev.sensors.ev3.EV3IRSensor;
 import ev3dev.sensors.ev3.EV3UltrasonicSensor;
 import lejos.hardware.port.Port;
 import lejos.robotics.SampleProvider;

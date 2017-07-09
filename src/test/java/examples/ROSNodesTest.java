@@ -5,6 +5,7 @@ import ev3dev.ros.nodes.EV3IRSensorNode;
 import ev3dev.ros.nodes.EV3UltrasonicSensorNode;
 import ev3dev.ros.nodes.LaserScanNode;
 import ev3dev.sensors.Button;
+import ev3dev.sensors.slamtec.RPLidarA1ServiceException;
 import lejos.hardware.port.SensorPort;
 import org.ros.RosCore;
 import org.ros.node.DefaultNodeMainExecutor;
@@ -20,7 +21,8 @@ public class ROSNodesTest {
 
     private static RosCore mRosCore;
 
-    public static void main(final String [] args) throws UnknownHostException {
+    public static void main(final String [] args)
+            throws UnknownHostException, RPLidarA1ServiceException {
 
         //Connect with Roscore
         connectWithRoscore(args);

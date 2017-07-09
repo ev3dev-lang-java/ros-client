@@ -22,7 +22,7 @@ public class OdometryNode extends AbstractNodeMain {
     private final double linearSpeed;
     private final double angularSpeed;
     private final String frameId;
-    
+
     public OdometryNode(
             final Navigator navigator,
             final String frameId) {

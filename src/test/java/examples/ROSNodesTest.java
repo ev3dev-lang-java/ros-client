@@ -31,11 +31,12 @@ public class ROSNodesTest {
         final String nodeName = "BrickNode";
         final NodeConfiguration nodeConfig = getNodeConfig(nodeName);
 
+        final String frameId = "robot";
 
         final NodeMain batteryPublisherNode = new BatteryNode();
-        final NodeMain ev3irPublisherNode = new EV3IRSensorNode(SensorPort.S1);
-        final NodeMain ev3usPublisherNode = new EV3UltrasonicSensorNode(SensorPort.S2);
-        final NodeMain laserPublisherNode = new LaserScanNode("/dev/ttyUSB0");
+        final NodeMain ev3irPublisherNode = new EV3IRSensorNode(SensorPort.S1, frameId);
+        final NodeMain ev3usPublisherNode = new EV3UltrasonicSensorNode(SensorPort.S2, frameId);
+        final NodeMain laserPublisherNode = new LaserScanNode("/dev/ttyUSB0", frameId);
 
         nodeExecutor.execute(batteryPublisherNode, nodeConfig);
         nodeExecutor.execute(ev3irPublisherNode, nodeConfig);

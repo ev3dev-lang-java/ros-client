@@ -10,7 +10,7 @@ import std_msgs.Float32;
 
 public class BatteryNode extends AbstractNodeMain {
 
-    private final java.lang.String NODE_NAME = "BrickBattery";
+    private final java.lang.String NODE_NAME = "battery";
 
     @Override
     public GraphName getDefaultNodeName() {
@@ -32,9 +32,11 @@ public class BatteryNode extends AbstractNodeMain {
 
             @Override
             protected void loop() throws InterruptedException {
-                Float32 scan = publisher.newMessage();
-                scan.setData(battery.getVoltage());
-                publisher.publish(scan);
+
+                Float32 message = publisher.newMessage();
+                message.setData(battery.getVoltage());
+
+                publisher.publish(message);
             }
 
         });

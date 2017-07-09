@@ -2,6 +2,7 @@ package ev3dev.ros.nodes;
 
 import ev3dev.sensors.slamtec.RPLidarA1;
 import org.ros.concurrent.CancellableLoop;
+import org.ros.message.Time;
 import org.ros.namespace.GraphName;
 import org.ros.node.AbstractNodeMain;
 import org.ros.node.ConnectedNode;
@@ -10,12 +11,16 @@ import sensor_msgs.LaserScan;
 
 public class LaserScanNode extends AbstractNodeMain {
 
-    private final java.lang.String NODE_NAME = "BrickLaserScan";
+    private final java.lang.String NODE_NAME = "laserScan";
 
     private final String sensorPort;
+    private final String frameId;
 
-    public LaserScanNode(final String sensorPort){
+    public LaserScanNode(
+            final String sensorPort,
+            final String frameId) {
         this.sensorPort = sensorPort;
+        this.frameId = frameId;
     }
 
     @Override
@@ -39,9 +44,14 @@ public class LaserScanNode extends AbstractNodeMain {
 
             @Override
             protected void loop() throws InterruptedException {
-                sensor_msgs.LaserScan scan = publisher.newMessage();
 
-                publisher.publish(scan);
+                sensor_msgs.LaserScan message = publisher.newMessage();
+
+
+
+                message.getHeader().setFrameId(frameId);
+                message.getHeader().setStamp(Time.fromMillis(System.currentTimeMillis()));
+                publisher.publish(message);
             }
 
         });

@@ -21,14 +21,9 @@ dependencies {
 
     compile("com.github.ev3dev-lang-java:ev3dev-lang-java:v0.7.0-SNAPSHOT")
     compile("com.github.ev3dev-lang-java:lejos-navigation:v0.1.0")
-    compile("com.github.ev3dev-lang-java:RPLidar4J:v0.2.0")
+    compile("com.github.ev3dev-lang-java:RPLidar4J:v0.3.0")
 
-    compile("commons-codec:commons-codec:1.9")
-    compile("commons-httpclient:commons-httpclient:3.1")
-    compile("org.ros.rosjava_core:rosjava:[0.2,0.3)")
-    compile("org.ros.rosjava_messages:std_msgs:[0.1,)")
-    compile("org.ros.rosjava_messages:sensor_msgs:[0.1,)")
-    compile("org.ros.rosjava_messages:geometry_msgs:[1.11,1.12)")
+    compile 'edu.wpi.rail:jrosbridge:0.2.0'
 
     testCompile("ch.qos.logback:logback-classic:1.2.3")
 }

@@ -3,6 +3,7 @@ package ev3dev.ros;
 import edu.wpi.rail.jrosbridge.Ros;
 import edu.wpi.rail.jrosbridge.Topic;
 import edu.wpi.rail.jrosbridge.messages.Message;
+import edu.wpi.rail.jrosbridge.messages.std.Float32;
 import ev3dev.sensors.Battery;
 
 public class BatteryPublisher {
@@ -23,7 +24,7 @@ public class BatteryPublisher {
     public void publish(){
 
         final Topic topic = new Topic(this.ros, this.topicName, dataType);
-        final Message message = new Message("" + battery.getVoltage());
+        final Message message = new Float32(battery.getVoltage());
         topic.publish(message);
     }
 

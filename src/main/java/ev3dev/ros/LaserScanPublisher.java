@@ -4,6 +4,7 @@ import edu.wpi.rail.jrosbridge.Ros;
 import edu.wpi.rail.jrosbridge.Topic;
 import edu.wpi.rail.jrosbridge.messages.Message;
 import edu.wpi.rail.jrosbridge.messages.sensor_msgs.LaserScan;
+import edu.wpi.rail.jrosbridge.messages.std.Header;
 import edu.wpi.rail.jrosbridge.primitives.Time;
 import ev3dev.sensors.slamtec.RPLidarA1;
 import ev3dev.sensors.slamtec.RPLidarA1ServiceException;
@@ -21,41 +22,46 @@ public class LaserScanPublisher {
     private final String sensorPort;
     private final String frameId;
     final RPLidarA1 lidar;
+    private Time previousTime;
+    private final Topic topic;
+    private int counter_seq = 0;
 
     public LaserScanPublisher(
             final Ros ros,
             final String sensorPort,
-            final String frameId) {
+            final String frameId) throws RPLidarA1ServiceException {
 
         this.ros = ros;
         topicName = DEFAULT_TOPIC_NAME;
         this.sensorPort = sensorPort;
         this.frameId = frameId;
         lidar = new RPLidarA1(sensorPort);
-    }
-
-    public void publish() throws RPLidarA1ServiceException {
-
-        final Topic topic = new Topic(this.ros, this.topicName, dataType);
-
+        previousTime = Time.now();
         lidar.init();
+
+        topic = new Topic(this.ros, this.topicName, dataType);
+
         lidar.addListener(new RPLidarProviderListener() {
+
             @Override
             public void scanFinished(Scan scan) {
 
-                final Time start_scan_time = Time.now();//.fromMillis(System.currentTimeMillis());
-                final Time end_scan_time = Time.now();//fromMillis(System.currentTimeMillis());
+                final Time end_scan_time = Time.now();
+                float scan_time = (end_scan_time.subtract(previousTime).secs) * 1e-3f;
 
-                float scan_time = (end_scan_time.subtract(start_scan_time).secs) * 1e-3f;
+                System.out.println(scan_time);
 
-                float angle_min = convertDegreesToRadians(0.0f);
-                float angle_max = convertDegreesToRadians(359.0f);
+                float angle_min = (float) Math.PI - convertDegreesToRadians(0.0f);
+                float angle_max = (float) Math.PI - convertDegreesToRadians(359.0f);
 
-                int node_count = scan.getDistances().size();
+                int node_count = 360;//scan.getDistances().size();
 
-                //message.setAngleMin((float) Math.PI - angle_min);
-                //message.setAngleMax((float) Math.PI - angle_max);
-                //message.setAngleIncrement(message.getAngleMax() - message.getAngleMin() / (node_count-1));
+                //float angleIncrement = (angle_max - angle_min) / node_count;
+                float angleIncrement = (angle_max - angle_min) / 360;
+                float timeIncrement = scan_time / node_count;
+
+                System.out.println("demo" + timeIncrement);
+
                 //message.setScanTime(scan_time);
                 //message.setTimeIncrement(scan_time / (node_count-1));
 
@@ -64,42 +70,47 @@ public class LaserScanPublisher {
 
                 //TODO Add in the future: inverted & angle_compensate
 
-                final float[] ranges = new float[scan.getDistances().size()];
-                final float[] intensities = new float[scan.getDistances().size()];
+                final float[] ranges = new float[360];
+                final float[] intensities = new float[0];
+
                 for (ScanDistance distance: scan.getDistances()) {
-
-                    if (distance.getDistance() == 0.0){
+                    if(distance.getDistance() == 0.0) {
                         ranges[distance.getAngle()] = Float.MAX_VALUE;
-                    }else{
-                        //TODO Upgrade library to return float
-                        ranges[distance.getAngle()] = (float) distance.getDistance();
+                    }else {
+                        if(distance.getAngle() > 360){
+                            System.out.println("Warning: " + distance.getAngle());
+                            continue;
+                        }
+                        ranges[distance.getAngle()] = (float) distance.getDistance()/100;
                     }
-
-                    //TODO Review this value
-                    //scan_msg.intensities[i] = (float) (nodes[i].sync_quality >> 2);
-                    intensities[distance.getAngle()] = distance.getQuality();
                 }
 
                 //message.getHeader().setFrameId(frameId);
-                //message.getHeader().setStamp(Time.fromMillis(System.currentTimeMillis()));
-                //publisher.publish(message);
 
-                //final Message message = //new Message("" + battery.getVoltage());
+                Header header = new Header(counter_seq, Time.now(), "map");
+
                 final Message message = new LaserScan(
-                        null,
+                        header,
                         angle_min,
                         angle_max,
-                        0f,//angleIncrement,
-                        0f,//timeIncrement,
-                        0f,//timeScan,
-                        0f,//rangeMin,
-                        0f,//rangeMax,
+                        angleIncrement,
+                        timeIncrement,
+                        scan_time,
+                        0.15f,
+                        6f,
                         ranges,
                         intensities
                 );
+
                 topic.publish(message);
+
             }
         });
+    }
+
+    public void publish() throws RPLidarA1ServiceException {
+
+        lidar.scan();
     }
 
     private float convertDegreesToRadians(final float angle){

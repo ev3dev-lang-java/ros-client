@@ -1,4 +1,13 @@
 
+task remoteSudoPKill << {
+    ssh.run {
+        session(remotes.ev3dev) {
+            println "echo -e \"maker\" | sudo -S pkill java"
+            execute "echo -e \"maker\" | sudo -S pkill java"
+        }
+    }
+}
+
 task deploy << {
     ssh.run {
         session(remotes.ev3dev) {
@@ -22,6 +31,15 @@ task remoteRun << {
         session(remotes.ev3dev) {
             println "java -server -jar /home/robot/" + "${rootProject.name}" + "-" + version + "-all.jar"
             execute "java -server -jar /home/robot/" + "${rootProject.name}" + "-" + version + "-all.jar"
+        }
+    }
+}
+
+task remoteRunWithNativeLibs << {
+    ssh.run {
+        session(remotes.ev3dev) {
+            println "java -server -Djava.library.path=/usr/lib/jni/ -jar /home/robot/" + "${rootProject.name}" + "-" + version + "-all.jar"
+            execute "java -server -Djava.library.path=/usr/lib/jni/ -jar /home/robot/" + "${rootProject.name}" + "-" + version + "-all.jar"
         }
     }
 }

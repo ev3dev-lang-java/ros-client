@@ -16,13 +16,13 @@ public class LaserScan extends Message {
      */
     public static final String FIELD_HEADER = "header";
 
-    public static final String FIELD_ANGLE_MIN = "angleMin";
-    public static final String FIELD_ANGLE_MAX = "angleMax";
-    public static final String FIELD_ANGLE_INCREMENT = "angleIncrement";
-    public static final String FIELD_TIME_INCREMENT = "timeIncrement";
-    public static final String FIELD_TIME_SCAN = "timeScan";
-    public static final String FIELD_RANGE_MIN = "rangeMin";
-    public static final String FIELD_RANGE_MAX = "rangeMax";
+    public static final String FIELD_ANGLE_MIN = "angle_min";
+    public static final String FIELD_ANGLE_MAX = "angle_max";
+    public static final String FIELD_ANGLE_INCREMENT = "angle_increment";
+    public static final String FIELD_TIME_INCREMENT = "time_increment";
+    public static final String FIELD_TIME_SCAN = "scan_time";
+    public static final String FIELD_RANGE_MIN = "range_min";
+    public static final String FIELD_RANGE_MAX = "range_max";
     public static final String FIELD_RANGES = "ranges";
     public static final String FIELD_INTENSITIES = "intensities";
 

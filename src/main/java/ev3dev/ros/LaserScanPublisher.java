@@ -54,19 +54,13 @@ public class LaserScanPublisher {
                 float angle_min = (float) Math.PI - convertDegreesToRadians(0.0f);
                 float angle_max = (float) Math.PI - convertDegreesToRadians(359.0f);
 
-                int node_count = 360;//scan.getDistances().size();
+                int node_count = 360;
 
-                //float angleIncrement = (angle_max - angle_min) / node_count;
                 float angleIncrement = (angle_max - angle_min) / 360;
                 float timeIncrement = scan_time / node_count;
 
                 System.out.println("demo" + timeIncrement);
 
-                //message.setScanTime(scan_time);
-                //message.setTimeIncrement(scan_time / (node_count-1));
-
-                //message.setRangeMin(0.15f);
-                //message.setRangeMax(6);
 
                 //TODO Add in the future: inverted & angle_compensate
 

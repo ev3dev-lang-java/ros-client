@@ -17,13 +17,15 @@ repositories {
 }
 
 dependencies {
-    compile("com.github.ev3dev-lang-java:ev3dev-lang-java:v0.7.0-SNAPSHOT")
-    compile("com.github.ev3dev-lang-java:lejos-navigation:v0.1.0")
-    compile("com.github.ev3dev-lang-java:RPLidar4J:0.4.0-SNAPSHOT")
+    compile("org.slf4j:slf4j-api:1.7.25")
+
+    compile("com.github.ev3dev-lang-java:ev3dev-lang-java:0.7.1-SNAPSHOT")
+    compile("com.github.ev3dev-lang-java:lejos-navigation:0.2.1-SNAPSHOT")
+    compile("com.github.ev3dev-lang-java:RPLidar4J:0.4.0")
 
     compile 'edu.wpi.rail:jrosbridge:0.2.0'
 
-    testCompile("ch.qos.logback:logback-classic:1.2.3")
+    compile("ch.qos.logback:logback-classic:1.2.3")
 }
 
 //Wrapper

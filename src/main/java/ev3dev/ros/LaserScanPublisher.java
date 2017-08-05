@@ -6,13 +6,17 @@ import edu.wpi.rail.jrosbridge.messages.Message;
 import edu.wpi.rail.jrosbridge.messages.sensor_msgs.LaserScan;
 import edu.wpi.rail.jrosbridge.messages.std.Header;
 import edu.wpi.rail.jrosbridge.primitives.Time;
+
 import ev3dev.sensors.slamtec.RPLidarA1;
 import ev3dev.sensors.slamtec.RPLidarA1ServiceException;
 import ev3dev.sensors.slamtec.RPLidarProviderListener;
 import ev3dev.sensors.slamtec.model.Scan;
 import ev3dev.sensors.slamtec.model.ScanDistance;
+import org.slf4j.Logger;
 
 public class LaserScanPublisher {
+
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(LaserScanPublisher.class);
 
     private final Ros ros;
     private final String topicName;
@@ -48,19 +52,17 @@ public class LaserScanPublisher {
 
                 final Time end_scan_time = Time.now();
                 float scan_time = (end_scan_time.subtract(previousTime).secs) * 1e-3f;
+                previousTime = end_scan_time;
 
-                System.out.println(scan_time);
+                log.trace("Scan time: {}, Samples: {}", scan_time, scan.getDistances().size());
 
                 float angle_min = (float) Math.PI - convertDegreesToRadians(0.0f);
                 float angle_max = (float) Math.PI - convertDegreesToRadians(359.0f);
 
                 int node_count = 360;
 
-                float angleIncrement = (angle_max - angle_min) / 360;
+                float angleIncrement = (angle_max - angle_min) / 360f;
                 float timeIncrement = scan_time / node_count;
-
-                System.out.println("demo" + timeIncrement);
-
 
                 //TODO Add in the future: inverted & angle_compensate
 
@@ -68,21 +70,18 @@ public class LaserScanPublisher {
                 final float[] intensities = new float[0];
 
                 for (ScanDistance distance: scan.getDistances()) {
-                    if(distance.getDistance() == 0.0) {
+                    if(distance.getAngle() >= 360){
+                        log.warn("Warning: {}", distance.getAngle());
+                        continue;
+                    }
+                    if(distance.getDistance() == 0.0f) {
                         ranges[distance.getAngle()] = Float.MAX_VALUE;
                     }else {
-                        if(distance.getAngle() > 360){
-                            System.out.println("Warning: " + distance.getAngle());
-                            continue;
-                        }
-                        ranges[distance.getAngle()] = (float) distance.getDistance()/100;
+                        ranges[distance.getAngle()] = distance.getDistance()/100;
                     }
                 }
 
-                //message.getHeader().setFrameId(frameId);
-
-                Header header = new Header(counter_seq, Time.now(), "map");
-
+                final Header header = new Header(counter_seq, Time.now(), frameId);
                 final Message message = new LaserScan(
                         header,
                         angle_min,
@@ -103,8 +102,11 @@ public class LaserScanPublisher {
     }
 
     public void publish() throws RPLidarA1ServiceException {
-
         lidar.scan();
+    }
+
+    public void close() throws RPLidarA1ServiceException {
+        lidar.close();
     }
 
     private float convertDegreesToRadians(final float angle){

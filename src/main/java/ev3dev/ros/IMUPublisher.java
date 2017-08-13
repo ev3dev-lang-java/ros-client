@@ -2,10 +2,8 @@ package ev3dev.ros;
 
 import edu.wpi.rail.jrosbridge.Ros;
 import edu.wpi.rail.jrosbridge.Topic;
-import edu.wpi.rail.jrosbridge.messages.sensor_msgs.LaserScan;
 import edu.wpi.rail.jrosbridge.primitives.Time;
 import ev3dev.arduino.sensors.bn055.BNO055;
-import ev3dev.sensors.slamtec.RPLidarA1;
 import org.slf4j.Logger;
 
 /**

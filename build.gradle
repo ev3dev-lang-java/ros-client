@@ -22,6 +22,7 @@ dependencies {
     compile("com.github.ev3dev-lang-java:ev3dev-lang-java:0.7.1-SNAPSHOT")
     compile("com.github.ev3dev-lang-java:lejos-navigation:0.2.1-SNAPSHOT")
     compile("com.github.ev3dev-lang-java:RPLidar4J:0.4.0")
+    compile("com.github.ev3dev-lang-java:usb-devices:0.1.1-SNAPSHOT")
 
     compile 'edu.wpi.rail:jrosbridge:0.2.0'
 

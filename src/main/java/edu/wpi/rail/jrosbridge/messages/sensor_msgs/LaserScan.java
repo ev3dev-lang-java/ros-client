@@ -11,31 +11,31 @@ public class LaserScan extends Message {
 
     public static final String TYPE = "sensor_msgs/LaserScan";
 
+    private final Header header;
+    private final float angleMin;
+    private final float angleMax;
+    private final float angleIncrement;
+    private final float timeIncrement;
+    private final float timeScan;
+    private final float rangeMin;
+    private final float rangeMax;
+    private final float[] ranges;
+    private final float[] intensities;
+
     /**
      * The name of the header field for the message.
      */
-    public static final String FIELD_HEADER = "header";
+    private static final String FIELD_HEADER = "header";
 
-    public static final String FIELD_ANGLE_MIN = "angle_min";
-    public static final String FIELD_ANGLE_MAX = "angle_max";
-    public static final String FIELD_ANGLE_INCREMENT = "angle_increment";
-    public static final String FIELD_TIME_INCREMENT = "time_increment";
-    public static final String FIELD_TIME_SCAN = "scan_time";
-    public static final String FIELD_RANGE_MIN = "range_min";
-    public static final String FIELD_RANGE_MAX = "range_max";
-    public static final String FIELD_RANGES = "ranges";
-    public static final String FIELD_INTENSITIES = "intensities";
-
-    final Header header;
-    final float angleMin;
-    final float angleMax;
-    final float angleIncrement;
-    final float timeIncrement;
-    final float timeScan;
-    final float rangeMin;
-    final float rangeMax;
-    final float[] ranges;
-    final float[] intensities;
+    private static final String FIELD_ANGLE_MIN = "angle_min";
+    private static final String FIELD_ANGLE_MAX = "angle_max";
+    private static final String FIELD_ANGLE_INCREMENT = "angle_increment";
+    private static final String FIELD_TIME_INCREMENT = "time_increment";
+    private static final String FIELD_TIME_SCAN = "scan_time";
+    private static final String FIELD_RANGE_MIN = "range_min";
+    private static final String FIELD_RANGE_MAX = "range_max";
+    private static final String FIELD_RANGES = "ranges";
+    private static final String FIELD_INTENSITIES = "intensities";
 
     public LaserScan(
             Header header,

@@ -75,9 +75,9 @@ public class LaserScanPublisher {
                         continue;
                     }
                     if(distance.getDistance() == 0.0f) {
-                        ranges[distance.getAngle()] = Float.MAX_VALUE;
+                        //ranges[distance.getAngle()] = Float.MAX_VALUE;
                     }else {
-                        ranges[distance.getAngle()] = distance.getDistance()/100;
+                        //ranges[distance.getAngle()] = distance.getDistance()/100;
                     }
                 }
 

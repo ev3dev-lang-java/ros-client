@@ -29,8 +29,8 @@ task deployGeneratedFatJar << {
 task remoteRun << {
     ssh.run {
         session(remotes.ev3dev) {
-            println "java -server -jar /home/robot/" + "${rootProject.name}" + "-" + version + "-all.jar"
-            execute "java -server -jar /home/robot/" + "${rootProject.name}" + "-" + version + "-all.jar"
+            println "java -server -Djava.library.path=/usr/lib/jni/ -jar /home/robot/" + "${rootProject.name}" + "-" + version + "-all.jar"
+            execute "java -server -Djava.library.path=/usr/lib/jni/ -jar /home/robot/" + "${rootProject.name}" + "-" + version + "-all.jar"
         }
     }
 }

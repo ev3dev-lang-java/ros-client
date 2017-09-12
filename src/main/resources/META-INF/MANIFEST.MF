@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
-Implementation-Title: rosjava-helloworld
+Implementation-Title: ros
 Implementation-Version: 0.1.0
 Implementation-Vendor: Juan Antonio Breña Moral
-Main-Class: examples.ROSBridgeDemo
+Main-Class: examples.ROSBridgeTest
 

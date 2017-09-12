@@ -2,8 +2,7 @@ package examples;
 
 import edu.wpi.rail.jrosbridge.Ros;
 import ev3dev.ros.BatteryPublisher;
-import ev3dev.ros.LaserScanPublisher;
-import ev3dev.sensors.Button;
+import ev3dev.rosbridge.publishers.LaserScan;
 import ev3dev.sensors.slamtec.RPLidarA1ServiceException;
 
 /**
@@ -21,7 +20,7 @@ public class ROSBridgeTest {
     private static final String lidarFrame = "base_scan";
 
     private static BatteryPublisher battery;
-    private static LaserScanPublisher laserScan;
+    private static LaserScan laserScan;
 
     public static void main(String[] args) throws InterruptedException, RPLidarA1ServiceException {
 
@@ -41,7 +40,7 @@ public class ROSBridgeTest {
         System.out.println("ROSBridge Connected: " + ros.isConnected());
 
         battery = new BatteryPublisher(ros);
-        laserScan = new LaserScanPublisher(ros, USBPort, lidarFrame);
+        laserScan = new LaserScan(ros, USBPort, lidarFrame);
 
         boolean flag = true;
         while (flag == true){

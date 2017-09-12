@@ -1,17 +1,17 @@
-package ev3dev.ros;
+package ev3dev.rosbridge.publishers;
 
 import edu.wpi.rail.jrosbridge.Ros;
 import edu.wpi.rail.jrosbridge.Topic;
 import edu.wpi.rail.jrosbridge.primitives.Time;
-import ev3dev.arduino.sensors.bn055.BNO055;
+import ev3dev.sensors.arduino.bn055.BNO055;
 import org.slf4j.Logger;
 
 /**
  * Created by jabrena on 13/8/17.
  */
-public class IMUPublisher {
+public class IMU {
 
-    private static final Logger log = org.slf4j.LoggerFactory.getLogger(LaserScanPublisher.class);
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(LaserScan.class);
 
     private final Ros ros;
     private final String topicName;
@@ -25,7 +25,7 @@ public class IMUPublisher {
     private final Topic topic;
     private int counter_seq = 0;
 
-    public IMUPublisher(
+    public IMU(
             final Ros ros,
             final String sensorPort,
             final String frameId) {

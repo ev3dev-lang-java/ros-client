@@ -1,12 +1,9 @@
 package examples;
 
 import edu.wpi.rail.jrosbridge.Ros;
-import edu.wpi.rail.jrosbridge.Service;
 import edu.wpi.rail.jrosbridge.Topic;
 import edu.wpi.rail.jrosbridge.callback.TopicCallback;
 import edu.wpi.rail.jrosbridge.messages.Message;
-import edu.wpi.rail.jrosbridge.services.ServiceRequest;
-import edu.wpi.rail.jrosbridge.services.ServiceResponse;
 
 /**
  * Created by jabrena on 13/7/17.

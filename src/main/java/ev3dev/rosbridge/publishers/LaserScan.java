@@ -1,12 +1,10 @@
-package ev3dev.ros;
+package ev3dev.rosbridge.publishers;
 
 import edu.wpi.rail.jrosbridge.Ros;
 import edu.wpi.rail.jrosbridge.Topic;
 import edu.wpi.rail.jrosbridge.messages.Message;
-import edu.wpi.rail.jrosbridge.messages.sensor_msgs.LaserScan;
 import edu.wpi.rail.jrosbridge.messages.std.Header;
 import edu.wpi.rail.jrosbridge.primitives.Time;
-
 import ev3dev.sensors.slamtec.RPLidarA1;
 import ev3dev.sensors.slamtec.RPLidarA1ServiceException;
 import ev3dev.sensors.slamtec.RPLidarProviderListener;
@@ -14,14 +12,14 @@ import ev3dev.sensors.slamtec.model.Scan;
 import ev3dev.sensors.slamtec.model.ScanDistance;
 import org.slf4j.Logger;
 
-public class LaserScanPublisher {
+public class LaserScan {
 
-    private static final Logger log = org.slf4j.LoggerFactory.getLogger(LaserScanPublisher.class);
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(LaserScan.class);
 
     private final Ros ros;
     private final String topicName;
     private final String DEFAULT_TOPIC_NAME = "scan";
-    private final String dataType = LaserScan.TYPE;
+    private final String dataType = edu.wpi.rail.jrosbridge.messages.sensor_msgs.LaserScan.TYPE;
 
     private final String sensorPort;
     private final String frameId;
@@ -30,7 +28,7 @@ public class LaserScanPublisher {
     private final Topic topic;
     private int counter_seq = 0;
 
-    public LaserScanPublisher(
+    public LaserScan(
             final Ros ros,
             final String sensorPort,
             final String frameId) throws RPLidarA1ServiceException {
@@ -75,14 +73,14 @@ public class LaserScanPublisher {
                         continue;
                     }
                     if(distance.getDistance() == 0.0f) {
-                        //ranges[distance.getAngle()] = Float.MAX_VALUE;
+                        ranges[(int)distance.getAngle()] = Float.MAX_VALUE;
                     }else {
-                        //ranges[distance.getAngle()] = distance.getDistance()/100;
+                        ranges[(int)distance.getAngle()] = distance.getDistance()/100;
                     }
                 }
 
                 final Header header = new Header(counter_seq, Time.now(), frameId);
-                final Message message = new LaserScan(
+                final Message message = new edu.wpi.rail.jrosbridge.messages.sensor_msgs.LaserScan(
                         header,
                         angle_min,
                         angle_max,

@@ -1,9 +1,9 @@
 package examples;
 
+import ev3dev.sensors.Battery;
 import ev3dev.sensors.arduino.bn055.BNO055;
 import ev3dev.sensors.arduino.bn055.BNO055Listener;
 import ev3dev.sensors.arduino.bn055.model.BNO055Response;
-import ev3dev.sensors.Battery;
 import ev3dev.sensors.slamtec.RPLidarA1;
 import ev3dev.sensors.slamtec.RPLidarA1ServiceException;
 import ev3dev.sensors.slamtec.RPLidarProviderListener;

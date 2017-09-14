@@ -14,7 +14,7 @@ public @Slf4j class CombinedUSBDevices {
 
     public static void main(String[] args) throws Exception {
 
-        log.info("Testing RPLidar/BNO055 on an EV3Dev Brick with Java");
+        LOGGER.info("Testing RPLidar/BNO055 on an EV3Dev Brick with Java");
 
         final String USBPorts[] = {
                 "/dev/ttyUSB0",
@@ -26,7 +26,7 @@ public @Slf4j class CombinedUSBDevices {
 
         Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
             public void run() {
-                log.info("Closing Lidar & Arduino connection");
+                LOGGER.info("Closing Lidar & Arduino connection");
                 try {
                     lidar.close();
                     bno055.close();
@@ -43,7 +43,7 @@ public @Slf4j class CombinedUSBDevices {
 
             @Override
             public void scanFinished(final Scan scan) {
-                log.info("Angles: {}", scan.getDistances().size());
+                LOGGER.info("Angles: {}", scan.getDistances().size());
             }
         });
 
@@ -51,7 +51,7 @@ public @Slf4j class CombinedUSBDevices {
 
             @Override
             public void dataReceived(BNO055Response response) {
-                log.info("Sample: {}", response);
+                LOGGER.info("Sample: {}", response);
             }
         });
 
@@ -63,16 +63,16 @@ public @Slf4j class CombinedUSBDevices {
             lidar.scan();
 
             counter++;
-            log.info("Counter: {}", counter);
+            LOGGER.info("Counter: {}", counter);
 
             if(counter > 5){
                 break;
             }
         }
 
-        log.info("{}", Battery.getInstance().getVoltage());
+        LOGGER.info("{}", Battery.getInstance().getVoltage());
         lidar.close();
-        log.info("End");
+        LOGGER.info("End");
         System.exit(0);
     }
 

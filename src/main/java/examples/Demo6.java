@@ -16,7 +16,7 @@ public @Slf4j class Demo6 {
 
     public static void main(String[] args) throws Exception {
 
-        log.info("Testing RPLidar on a EV3Dev with Java");
+        LOGGER.info("Testing RPLidar on a EV3Dev with Java");
 
         final String USBPort = "/dev/ttyUSB0";
         final RPLidarA1 lidar = new RPLidarA1(USBPort);
@@ -39,7 +39,7 @@ public @Slf4j class Demo6 {
                 final int counter = scan.getDistances().size();
 
                 for (ScanDistance scanDistance: scan.getDistances()) {
-                    log.info("Angle: {}, Distance: {}, Quality: {}", scanDistance.getAngle(), scanDistance.getDistance(), scanDistance.getQuality());
+                    LOGGER.info("Angle: {}, Distance: {}, Quality: {}", scanDistance.getAngle(), scanDistance.getDistance(), scanDistance.getQuality());
                 }
 
                 synchronized (this) {
@@ -56,7 +56,7 @@ public @Slf4j class Demo6 {
             lidar.scan();
 
             counter++;
-            log.info("Counter: {}, Samples: ;{}", counter, samplesPerSecond);
+            LOGGER.info("Counter: {}, Samples: ;{}", counter, samplesPerSecond);
             samplesPerSecond = 0;
 
             if(counter > 5){
@@ -65,7 +65,7 @@ public @Slf4j class Demo6 {
         }
 
         lidar.close();
-        log.info("End");
+        LOGGER.info("End");
         System.exit(0);
     }
 

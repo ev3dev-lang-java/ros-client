@@ -4,6 +4,7 @@ import edu.wpi.rail.jrosbridge.Ros;
 import edu.wpi.rail.jrosbridge.Topic;
 import edu.wpi.rail.jrosbridge.callback.TopicCallback;
 import edu.wpi.rail.jrosbridge.messages.Message;
+import ev3dev.rosbridge.subscribers.TeleOperation;
 
 /**
  * Created by jabrena on 13/7/17.
@@ -26,6 +27,7 @@ public class ROSBridgeDemo {
             }
         });
 
+        TeleOperation teleoperation = new TeleOperation(ros, null);
 
         //Topic echo = new Topic(ros, "/echo", "std_msgs/String");
         //Message toSend = new Message("{\"data\": \"hello, world!\"}");

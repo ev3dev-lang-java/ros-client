@@ -16,19 +16,19 @@ public @Slf4j class BNO055EventsTest {
 
 			@Override
 			public void dataReceived(BNO055Response response) {
-				log.info("{}", response);
+				LOGGER.info("{}", response);
 			}
 
 		});
 
-		log.info("Start reading");
+		LOGGER.info("Start reading");
 		for(int x= 0; x<=10; x++){
-			log.info("Iteration: {}", x);
+			LOGGER.info("Iteration: {}", x);
 			Thread.sleep(1000);
 		}
 
 		bno055.close();
-		log.info("Closing connection with Arduino");
+		LOGGER.info("Closing connection with Arduino");
 
 	}
 }

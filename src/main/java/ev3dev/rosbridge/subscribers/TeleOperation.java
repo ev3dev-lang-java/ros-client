@@ -31,12 +31,7 @@ public @Slf4j class TeleOperation {
                 Twist data = Twist.fromMessage(message);
                 double x = data.getLinear().getX();
                 double z = data.getAngular().getZ();
-
-                //System.out.println("Linear");
-                //System.out.println("X: " + x);
-                //System.out.println("Angular");
-                //System.out.println("Z: " + z);
-
+                
                 if((x == 0d) && (z== 0d)){
                     LOGGER.info("Stop");
                     pilot.stop();

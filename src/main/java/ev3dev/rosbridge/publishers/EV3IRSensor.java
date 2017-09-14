@@ -15,7 +15,6 @@ public @Slf4j class EV3IRSensor {
     private final Ros ros;
     private final String topicName;
     private final String DEFAULT_TOPIC_NAME = "range";
-    private final String dataType = "sensor_msgs/_Range";
 
     private final Port sensorPort;
     private final String frameId;
@@ -23,7 +22,7 @@ public @Slf4j class EV3IRSensor {
     private ev3dev.sensors.ev3.EV3IRSensor irSensor;
     private SampleProvider sampleProvider;
     private int sampleSize;
-    //private float [] sample;
+
 
     public EV3IRSensor(
             final Ros ros,
@@ -52,7 +51,7 @@ public @Slf4j class EV3IRSensor {
         float distance = sample[0];
 
         if(distance != Float.POSITIVE_INFINITY) {
-            final Topic topic = new Topic(this.ros, this.topicName, dataType);
+            final Topic topic = new Topic(this.ros, this.topicName, Range.TYPE);
             final Header header = new Header(counter_seq, Time.now(), frameId);
             final Message message = new Range(
                     header,

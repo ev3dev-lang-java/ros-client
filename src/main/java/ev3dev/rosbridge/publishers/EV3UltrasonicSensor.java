@@ -14,14 +14,13 @@ public class EV3UltrasonicSensor extends Message {
     private final Ros ros;
     private final String topicName;
     private final String DEFAULT_TOPIC_NAME = "range";
-    private final String dataType = "sensor_msgs/_Range";
 
     private final Port sensorPort;
     private final String frameId;
 
     private ev3dev.sensors.ev3.EV3UltrasonicSensor ultrasonicSensor;
     private SampleProvider sampleProvider;
-    private float [] sample;
+    private int sampleSize;
 
 
     public EV3UltrasonicSensor(
@@ -39,18 +38,19 @@ public class EV3UltrasonicSensor extends Message {
     private void init(){
         ultrasonicSensor = new ev3dev.sensors.ev3.EV3UltrasonicSensor(sensorPort);
         sampleProvider = ultrasonicSensor.getDistanceMode();
-        sample = new float[sampleProvider.sampleSize()];
+        sampleSize = sampleProvider.sampleSize();
     }
 
     private int counter_seq = 0;
 
     public void publish(){
 
+        float [] sample = new float[sampleSize];
         sampleProvider.fetchSample(sample, 0);
         float distance = sample[0];
 
         if(distance != Float.POSITIVE_INFINITY) {
-            final Topic topic = new Topic(this.ros, this.topicName, dataType);
+            final Topic topic = new Topic(this.ros, this.topicName, Range.TYPE);
             final Header header = new Header(counter_seq, Time.now(), frameId);
             final Message message = new Range(
                     header,

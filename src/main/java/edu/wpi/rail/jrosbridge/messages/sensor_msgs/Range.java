@@ -10,8 +10,8 @@ import javax.json.Json;
  */
 public class Range extends Message {
 
-    static final java.lang.String TYPE = "sensor_msgs/Range";
-    static final java.lang.String DEFINITION =
+    public static final String TYPE = "sensor_msgs/Range";
+    public static final String DEFINITION =
             "# Single range reading from an active ranger that emits energy and reports\n" +
             "# one range reading that is valid along an arc at the distance measured. \n" +
             "# This message is  not appropriate for laser scanners. See the LaserScan\n" +
@@ -51,8 +51,8 @@ public class Range extends Message {
             "# +Inf represents no detection within the fixed distance.\n                        " +
             "# (Object out of range)";
 
-    static public final byte ULTRASOUND = 0;
-    static public final byte INFRARED = 1;
+    public static final byte ULTRASOUND = 0;
+    public static final byte INFRARED = 1;
 
     private final Header header;
     private final byte radiationType;

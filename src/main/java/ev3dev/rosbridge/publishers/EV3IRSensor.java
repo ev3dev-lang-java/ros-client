@@ -8,8 +8,9 @@ import edu.wpi.rail.jrosbridge.messages.std.Header;
 import edu.wpi.rail.jrosbridge.primitives.Time;
 import lejos.hardware.port.Port;
 import lejos.robotics.SampleProvider;
+import lombok.extern.slf4j.Slf4j;
 
-public class EV3IRSensor {
+public @Slf4j class EV3IRSensor {
 
     private final Ros ros;
     private final String topicName;
@@ -21,7 +22,8 @@ public class EV3IRSensor {
 
     private ev3dev.sensors.ev3.EV3IRSensor irSensor;
     private SampleProvider sampleProvider;
-    private float [] sample;
+    private int sampleSize;
+    //private float [] sample;
 
     public EV3IRSensor(
             final Ros ros,
@@ -38,25 +40,29 @@ public class EV3IRSensor {
     private void init(){
         irSensor = new ev3dev.sensors.ev3.EV3IRSensor(sensorPort);
         sampleProvider = irSensor.getDistanceMode();
-        sample = new float[sampleProvider.sampleSize()];
+        sampleSize = sampleProvider.sampleSize();
     }
 
     private int counter_seq = 0;
 
     public void publish(){
 
+        float [] sample = new float[sampleSize];
         sampleProvider.fetchSample(sample, 0);
+        float distance = sample[0];
 
-        final Topic topic = new Topic(this.ros, this.topicName, dataType);
-        final Header header = new Header(counter_seq, Time.now(), frameId);
-        final Message message = new Range(
-                header,
-                Range.INFRARED,
-                0.05f,
-                0.05f,
-                0.8f,
-                sample[0]
-        );
-        topic.publish(message);
+        if(distance != Float.POSITIVE_INFINITY) {
+            final Topic topic = new Topic(this.ros, this.topicName, dataType);
+            final Header header = new Header(counter_seq, Time.now(), frameId);
+            final Message message = new Range(
+                    header,
+                    Range.INFRARED,
+                    0.05f,
+                    0.05f,
+                    0.8f,
+                    distance
+            );
+            topic.publish(message);
+        }
     }
 }

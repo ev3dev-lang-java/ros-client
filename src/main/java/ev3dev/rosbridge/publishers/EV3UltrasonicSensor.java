@@ -47,17 +47,20 @@ public class EV3UltrasonicSensor extends Message {
     public void publish(){
 
         sampleProvider.fetchSample(sample, 0);
+        float distance = sample[0];
 
-        final Topic topic = new Topic(this.ros, this.topicName, dataType);
-        final Header header = new Header(counter_seq, Time.now(), frameId);
-        final Message message = new Range(
-                header,
-                Range.ULTRASOUND,
-                0.05f,
-                0.05f,
-                2.5f,
-                sample[0]
-        );
-        topic.publish(message);
+        if(distance != Float.POSITIVE_INFINITY) {
+            final Topic topic = new Topic(this.ros, this.topicName, dataType);
+            final Header header = new Header(counter_seq, Time.now(), frameId);
+            final Message message = new Range(
+                    header,
+                    Range.ULTRASOUND,
+                    0.05f,
+                    0.05f,
+                    2.5f,
+                    distance
+            );
+            topic.publish(message);
+        }
     }
 }

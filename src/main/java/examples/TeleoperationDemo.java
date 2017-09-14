@@ -5,7 +5,9 @@ import edu.wpi.rail.jrosbridge.Topic;
 import edu.wpi.rail.jrosbridge.callback.TopicCallback;
 import edu.wpi.rail.jrosbridge.messages.Message;
 import edu.wpi.rail.jrosbridge.messages.geometry.Twist;
+import ev3dev.rosbridge.publishers.EV3IRSensor;
 import ev3dev.rosbridge.subscribers.TeleOperation;
+import lejos.hardware.port.SensorPort;
 
 /**
  * Created by jabrena on 13/7/17.
@@ -26,9 +28,12 @@ public class TeleoperationDemo {
         TeleOperation teleoperation = new TeleOperation(ros, pilotConfig.getPilot());
         teleoperation.subscribe();
 
+        EV3IRSensor irSensor = new EV3IRSensor(ros, SensorPort.S1, "base_link");
+
         boolean flag = true;
         while (flag == true){
             //Empty
+            irSensor.publish();
         }
 
         ros.disconnect();

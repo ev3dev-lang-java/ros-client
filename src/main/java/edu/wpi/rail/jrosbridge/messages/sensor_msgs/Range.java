@@ -10,7 +10,7 @@ import javax.json.Json;
  */
 public class Range extends Message {
 
-    static final java.lang.String TYPE = "sensor_msgs/_Range";
+    static final java.lang.String TYPE = "sensor_msgs/Range";
     static final java.lang.String DEFINITION =
             "# Single range reading from an active ranger that emits energy and reports\n" +
             "# one range reading that is valid along an arc at the distance measured. \n" +
@@ -61,12 +61,12 @@ public class Range extends Message {
     private final float maxRange;
     private final float range;
 
-    private static final String FIELD_HEADER = "header";
-    private static final String FIELD_RADIATION_TYPE = "radiation_type";
-    private static final String FIELD_FIELD_OF_VIEW = "field_of_view";
-    private static final String FIELD_MIN_RANGE = "min_range";
-    private static final String FIELD_MAX_RANGE = "max_range";
-    private static final String FIELD_RANGE = "range";
+    public static final String FIELD_HEADER = "header";
+    public static final String FIELD_RADIATION_TYPE = "radiation_type";
+    public static final String FIELD_FIELD_OF_VIEW = "field_of_view";
+    public static final String FIELD_MIN_RANGE = "min_range";
+    public static final String FIELD_MAX_RANGE = "max_range";
+    public static final String FIELD_RANGE = "range";
 
     public Range(
             final Header header,
@@ -85,7 +85,7 @@ public class Range extends Message {
                 .add(Range.FIELD_MIN_RANGE, minRange)
                 .add(Range.FIELD_MAX_RANGE, maxRange)
                 .add(Range.FIELD_RANGE, range)
-                .build(), LaserScan.TYPE);
+                .build(), Range.TYPE);
 
         this.header = header;
         this.radiationType = radiationType;

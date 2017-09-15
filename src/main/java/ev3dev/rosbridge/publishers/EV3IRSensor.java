@@ -48,7 +48,7 @@ public @Slf4j class EV3IRSensor {
 
         float [] sample = new float[sampleSize];
         sampleProvider.fetchSample(sample, 0);
-        float distance = sample[0];
+        float distance = sample[0] / 100;
 
         if(distance != Float.POSITIVE_INFINITY) {
             final Topic topic = new Topic(this.ros, this.topicName, Range.TYPE);
@@ -56,9 +56,9 @@ public @Slf4j class EV3IRSensor {
             final Message message = new Range(
                     header,
                     Range.INFRARED,
+                    0.5f,
                     0.05f,
-                    0.05f,
-                    0.8f,
+                    0.55f,
                     distance
             );
             topic.publish(message);

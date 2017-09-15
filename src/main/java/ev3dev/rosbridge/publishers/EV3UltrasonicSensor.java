@@ -47,7 +47,7 @@ public class EV3UltrasonicSensor extends Message {
 
         float [] sample = new float[sampleSize];
         sampleProvider.fetchSample(sample, 0);
-        float distance = sample[0];
+        float distance = sample[0] / 100;
 
         if(distance != Float.POSITIVE_INFINITY) {
             final Topic topic = new Topic(this.ros, this.topicName, Range.TYPE);
@@ -55,9 +55,9 @@ public class EV3UltrasonicSensor extends Message {
             final Message message = new Range(
                     header,
                     Range.ULTRASOUND,
+                    0.5f,
                     0.05f,
-                    0.05f,
-                    2.5f,
+                    2.55f,
                     distance
             );
             topic.publish(message);

@@ -36,7 +36,8 @@ public class Range extends Message {
             "# the object causing the range reading may have\n                        " +
             "# been anywhere within -field_of_view/2 and\n                        " +
             "# field_of_view/2 at the measured range. \n                        " +
-            "# 0 angle corresponds to the x-axis of the sensor.\n\nfloat32 min_range       " +
+            "# 0 angle corresponds to the x-axis of the sensor.\n\n" +
+            "float32 min_range       " +
             "# minimum range value [m]\n" +
             "float32 max_range       " +
             "# maximum range value [m]\n                        " +

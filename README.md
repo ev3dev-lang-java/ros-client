@@ -21,10 +21,6 @@ Using this library, the user could publish & subscribe information to ROS for th
 
 * battery (std_msgs.Float32)
 * scan (sensor_msgs.LaserScan)
-* range (sensor_msgs.Range)
-* odom (nav_msgs.Odometry)
-* pose (geometry_msgs/PoseStamped)
-* tf (tf/tfMessage)
  
 ### Topics Subscribed 
  
@@ -42,5 +38,30 @@ and improve the local navigation capabilities
 
 Using information provided by the topic `cmd_vel` it could be possible to teleoperate the robot
 using ROS technologies.
+
+## Current status
+
+At the moment, the library publish messages for the sensor RPLIDAR A2 on a ROS Instance.
+
+To Start a ROS Session:
+
+```
+
+source /opt/ros/kinetic/setup.bash
+cd catkin_ws
+source install_isolated/setup.bash
+roslaunch rosbridge_server rosbridge_websocket.launch
+```
+
+## Roadmap
+
+In the future, the library, will publish more data:
+
+* range (sensor_msgs.Range)
+* odom (nav_msgs.Odometry)
+* pose (geometry_msgs/PoseStamped)
+* tf (tf/tfMessage)
+
+
  
 

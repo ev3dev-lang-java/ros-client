@@ -49,6 +49,9 @@ public class EV3UltrasonicSensor extends Message {
         sampleProvider.fetchSample(sample, 0);
         float distance = sample[0] / 100;
 
+        final float minRange = ev3dev.sensors.ev3.EV3UltrasonicSensor.MIN_RANGE/100f;
+        final float maxRange = ev3dev.sensors.ev3.EV3UltrasonicSensor.MAX_RANGE/100f;
+
         if(distance != Float.POSITIVE_INFINITY) {
             final Topic topic = new Topic(this.ros, this.topicName, Range.TYPE);
             final Header header = new Header(counter_seq, Time.now(), frameId);
@@ -56,8 +59,8 @@ public class EV3UltrasonicSensor extends Message {
                     header,
                     Range.ULTRASOUND,
                     0.5f,
-                    0.05f,
-                    2.55f,
+                    minRange,
+                    maxRange,
                     distance
             );
             topic.publish(message);

@@ -50,6 +50,9 @@ public @Slf4j class EV3IRSensor {
         sampleProvider.fetchSample(sample, 0);
         float distance = sample[0] / 100;
 
+        final float minRange = ev3dev.sensors.ev3.EV3IRSensor.MIN_RANGE/100f;
+        final float maxRange = ev3dev.sensors.ev3.EV3IRSensor.MAX_RANGE/100f;
+
         if(distance != Float.POSITIVE_INFINITY) {
             final Topic topic = new Topic(this.ros, this.topicName, Range.TYPE);
             final Header header = new Header(counter_seq, Time.now(), frameId);
@@ -57,8 +60,8 @@ public @Slf4j class EV3IRSensor {
                     header,
                     Range.INFRARED,
                     0.5f,
-                    0.05f,
-                    0.55f,
+                    minRange,
+                    maxRange,
                     distance
             );
             topic.publish(message);

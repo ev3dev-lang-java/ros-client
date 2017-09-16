@@ -15,7 +15,7 @@ public class Odometry {
 
     private final Ros ros;
     private final DifferentialPilot pilot;
-    private final OdometryPoseProvider odometry;
+    private final OdometryPoseProvider odometryPoseProvider;
     private final String frameId;
     private final String childFrameId;
 
@@ -34,7 +34,7 @@ public class Odometry {
             final String childFrameId){
         this.ros = ros;
         this.pilot = pilot;
-        this.odometry = new OdometryPoseProvider(pilot);
+        this.odometryPoseProvider = new OdometryPoseProvider(pilot);
         this.frameId = frameId;
         this.childFrameId = childFrameId;
 
@@ -45,7 +45,7 @@ public class Odometry {
 
     public void publish() {
 
-        final Pose pose = odometry.getPose();
+        final Pose pose = odometryPoseProvider.getPose();
 
         final Header header = new Header(counter_seq, Time.now(), frameId);
         final PoseWithCovariance poseWithCovariance = getPoseWithCovariance(pose);

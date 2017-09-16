@@ -4,6 +4,7 @@ import edu.wpi.rail.jrosbridge.Ros;
 import edu.wpi.rail.jrosbridge.Topic;
 import edu.wpi.rail.jrosbridge.messages.Message;
 import edu.wpi.rail.jrosbridge.messages.geometry.*;
+import edu.wpi.rail.jrosbridge.messages.nav_msgs.Odometry;
 import edu.wpi.rail.jrosbridge.messages.std.Header;
 import edu.wpi.rail.jrosbridge.primitives.Time;
 import lejos.robotics.localization.OdometryPoseProvider;
@@ -11,7 +12,7 @@ import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.navigation.Move;
 import lejos.robotics.navigation.Pose;
 
-public class Odometry {
+public class Odom {
 
     private final Ros ros;
     private final DifferentialPilot pilot;
@@ -21,13 +22,13 @@ public class Odometry {
 
     private final String topicName;
     private final String DEFAULT_TOPIC_NAME = "odom";
-    private final String dataType = edu.wpi.rail.jrosbridge.messages.nav_msgs.Odometry.TYPE;
+    private final String dataType = Odometry.TYPE;
 
     private final Topic topic;
 
     private int counter_seq = 0;
 
-    public Odometry(
+    public Odom(
             final Ros ros,
             final DifferentialPilot pilot,
             final String frameId,
@@ -50,7 +51,7 @@ public class Odometry {
         final Header header = new Header(counter_seq, Time.now(), frameId);
         final PoseWithCovariance poseWithCovariance = getPoseWithCovariance(pose);
         final TwistWithCovariance twistWithCovariance = this.getTwistWithCovariance();
-        final Message message = new edu.wpi.rail.jrosbridge.messages.nav_msgs.Odometry(
+        final Message message = new Odometry(
                         header,
                         childFrameId,
                         poseWithCovariance,

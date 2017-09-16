@@ -8,13 +8,12 @@ import edu.wpi.rail.jrosbridge.primitives.Time;
 import ev3dev.sensors.slamtec.RPLidarA1;
 import ev3dev.sensors.slamtec.RPLidarA1ServiceException;
 import ev3dev.sensors.slamtec.RPLidarProviderListener;
-import ev3dev.sensors.slamtec.model.Scan;
 import ev3dev.sensors.slamtec.model.ScanDistance;
 import org.slf4j.Logger;
 
-public class LaserScan {
+public class Scan {
 
-    private static final Logger log = org.slf4j.LoggerFactory.getLogger(LaserScan.class);
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(Scan.class);
 
     private final Ros ros;
     private final String topicName;
@@ -28,7 +27,7 @@ public class LaserScan {
     private final Topic topic;
     private int counter_seq = 0;
 
-    public LaserScan(
+    public Scan(
             final Ros ros,
             final String sensorPort,
             final String frameId) throws RPLidarA1ServiceException {
@@ -46,7 +45,7 @@ public class LaserScan {
         lidar.addListener(new RPLidarProviderListener() {
 
             @Override
-            public void scanFinished(Scan scan) {
+            public void scanFinished(ev3dev.sensors.slamtec.model.Scan scan) {
 
                 final Time end_scan_time = Time.now();
                 float scan_time = (end_scan_time.subtract(previousTime).secs) * 1e-3f;

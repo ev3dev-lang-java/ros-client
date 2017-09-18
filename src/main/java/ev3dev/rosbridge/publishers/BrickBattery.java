@@ -15,10 +15,10 @@ public class BrickBattery {
 
     private final Battery battery;
 
-    public BrickBattery(final Ros ros) {
+    public BrickBattery(final Ros ros, Battery battery) {
         this.ros = ros;
         topicName = DEFAULT_TOPIC_NAME;
-        battery = Battery.getInstance();
+        this.battery = battery;
     }
 
     public void publish(){

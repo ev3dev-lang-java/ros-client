@@ -47,7 +47,7 @@ public class Tf {
 
         final Pose pose = odometryPoseProvider.getPose();
 
-        TransformStamped[] transformStampedList = new TransformStamped[0];
+        TransformStamped[] transformStampedList = new TransformStamped[1];
 
         final Header header = new Header(counter_seq, Time.now(), frameId);
         Quaternion quaternion = getQuaternion(pose);

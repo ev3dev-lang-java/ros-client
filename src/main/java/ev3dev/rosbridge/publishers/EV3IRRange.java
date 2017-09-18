@@ -6,11 +6,12 @@ import edu.wpi.rail.jrosbridge.messages.Message;
 import edu.wpi.rail.jrosbridge.messages.sensor_msgs.Range;
 import edu.wpi.rail.jrosbridge.messages.std.Header;
 import edu.wpi.rail.jrosbridge.primitives.Time;
+import ev3dev.sensors.ev3.EV3IRSensor;
 import lejos.hardware.port.Port;
 import lejos.robotics.SampleProvider;
 import lombok.extern.slf4j.Slf4j;
 
-public @Slf4j class EV3IRSensor {
+public @Slf4j class EV3IRRange {
 
     private final Ros ros;
     private final String topicName;
@@ -19,15 +20,18 @@ public @Slf4j class EV3IRSensor {
     private final Port sensorPort;
     private final String frameId;
 
-    private ev3dev.sensors.ev3.EV3IRSensor irSensor;
+    private EV3IRSensor irSensor;
     private SampleProvider sampleProvider;
     private int sampleSize;
 
 
-    public EV3IRSensor(
+    public EV3IRRange(
             final Ros ros,
             final Port sensorPort,
             final String frameId) {
+
+        LOGGER.info("Starting an EV3 IR Sensor publisher");
+
         this.ros = ros;
         this.sensorPort = sensorPort;
         this.frameId = frameId;
@@ -37,7 +41,7 @@ public @Slf4j class EV3IRSensor {
     }
 
     private void init(){
-        irSensor = new ev3dev.sensors.ev3.EV3IRSensor(sensorPort);
+        irSensor = new EV3IRSensor(sensorPort);
         sampleProvider = irSensor.getDistanceMode();
         sampleSize = sampleProvider.sampleSize();
     }
@@ -50,8 +54,8 @@ public @Slf4j class EV3IRSensor {
         sampleProvider.fetchSample(sample, 0);
         float distance = sample[0] / 100;
 
-        final float minRange = ev3dev.sensors.ev3.EV3IRSensor.MIN_RANGE/100f;
-        final float maxRange = ev3dev.sensors.ev3.EV3IRSensor.MAX_RANGE/100f;
+        final float minRange = EV3IRSensor.MIN_RANGE / 100f;
+        final float maxRange = EV3IRSensor.MAX_RANGE / 100f;
 
         if(distance != Float.POSITIVE_INFINITY) {
             final Topic topic = new Topic(this.ros, this.topicName, Range.TYPE);

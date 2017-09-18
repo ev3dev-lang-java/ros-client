@@ -11,7 +11,7 @@ import org.slf4j.Logger;
  */
 public class IMU {
 
-    private static final Logger log = org.slf4j.LoggerFactory.getLogger(LaserScan.class);
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(Scan.class);
 
     private final Ros ros;
     private final String topicName;

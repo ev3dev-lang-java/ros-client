@@ -122,7 +122,7 @@ public class Imu extends Message {
     }
 
     /**
-     * Create a clone of this LaserScan.
+     * Create a clone of this Scan.
      */
     @Override
     public Imu clone() {

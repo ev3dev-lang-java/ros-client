@@ -6,9 +6,12 @@ import ev3dev.rosbridge.publishers.BrickBattery;
 import ev3dev.rosbridge.publishers.Odom;
 import ev3dev.rosbridge.publishers.Scan;
 import ev3dev.rosbridge.subscribers.TeleOperation;
+
 import ev3dev.sensors.Battery;
 import ev3dev.sensors.slamtec.RPLidarA1ServiceException;
+
 import lejos.robotics.navigation.DifferentialPilot;
+
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -90,7 +93,5 @@ public @Slf4j class ROSPubSubDemo {
         ros.disconnect();
         System.exit(0);
     }
-
-
 
 }
